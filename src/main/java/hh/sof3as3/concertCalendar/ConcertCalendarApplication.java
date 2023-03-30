@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import hh.sof3as3.concertCalendar.domain.Event;
 import hh.sof3as3.concertCalendar.domain.EventRepository;
+import hh.sof3as3.concertCalendar.domain.Genre;
+import hh.sof3as3.concertCalendar.domain.GenreRepository;
 
 @SpringBootApplication
 public class ConcertCalendarApplication {
@@ -20,7 +22,7 @@ public class ConcertCalendarApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(EventRepository eventrepository) {
+	public CommandLineRunner demo(EventRepository eventrepository, GenreRepository genrerepository) {
 		return (args) -> {
 			//Testidataa
 			Event event1 = new Event("JamNight", 5.0, "Lava vapaa");
@@ -28,9 +30,22 @@ public class ConcertCalendarApplication {
 			eventrepository.save(event1);
 			eventrepository.save(event2);
 
+			// Testidataa genre
+			Genre genre1 = new Genre("Jazz");
+			Genre genre2 = new Genre("Pop");
+			genrerepository.save(genre1);
+			genrerepository.save(genre2);
+
+			// Event logitus
 			log.info("show all events");
 			for (Event event : eventrepository.findAll()) {
 				log.info(event.toString());
+			}
+
+			// Genre Logitus
+			log.info("show all genres");
+			for (Genre genre : genrerepository.findAll()) {
+				log.info(genre.toString());
 			}
 		};
 	}

@@ -11,7 +11,7 @@ public class Event {
     @GeneratedValue(strategy=GenerationType.AUTO) // Autogeneroi idt
     private Long id;
     private String title;
-    // private Date date; // TOFO: ENSIN YKSINKERTAINEN VERSIO
+    // private Date date; // TODO: ENSIN YKSINKERTAINEN VERSIO
     private Double price;
     private String info;
 
