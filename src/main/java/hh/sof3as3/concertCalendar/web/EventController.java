@@ -10,19 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import hh.sof3as3.concertCalendar.domain.Event;
 import hh.sof3as3.concertCalendar.domain.EventRepository;
+import hh.sof3as3.concertCalendar.domain.GenreRepository;
 
 @Controller
 public class EventController {
-    // TODO
-    // list OK
-    // add OK
-    // save OK
-    // delete
-    // edit
-    // search
+
 
     @Autowired
     private EventRepository eventrepository;
+    @Autowired
+    private GenreRepository genrerepository;
     
     // List all the event
     @GetMapping(value="/eventlist")
@@ -35,6 +32,7 @@ public class EventController {
     @RequestMapping("/addevent")
     public String addEvent(Model model) {
         model.addAttribute("event", new Event());
+        model.addAttribute("genres", genrerepository.findAll());
         return "addevent"; // .html
     }
 
@@ -56,6 +54,7 @@ public class EventController {
     @GetMapping("/edit/{id}")
     public String editEvent(@PathVariable("id") Long eventid, Model model) {
         model.addAttribute("event", eventrepository.findById(eventid));
+        model.addAttribute("genres", genrerepository.findAll());
         return "editevent";
     }
 

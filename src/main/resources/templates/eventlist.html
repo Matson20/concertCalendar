@@ -10,11 +10,19 @@
 <body>
     <h1>Eventlist</h1>
 
+
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post" >
+			<input type="submit" value="Sign Out" class="btn btn-danger"/>
+		</form>
+	</div>
+
     <table class="table table-striped">
         <tr>
             <th>Title</th>
             <th>Price</th>
             <th>Info</th>
+            <th>Genre</th>
             <th></th>
         </tr>
 
@@ -22,6 +30,8 @@
             <td th:text="${event.title}"></td>
             <td th:text="${event.price}"></td>
             <td th:text="${event.info}"></td>
+            <td th:each="genre:${genres}" th:value="${genreid}"
+                th:text="${genre.name}"></td>
             <td><a th:href="@{/delete/{id}(id=${event.id})}" class="btn btn-danger">Delete</a></td>
             <td><a th:href="@{/edit/{id}(id=${event.id})}" class="btn btn-success">Edit</a></td>
         </tr>

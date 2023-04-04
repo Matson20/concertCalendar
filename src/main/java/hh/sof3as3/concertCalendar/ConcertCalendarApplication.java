@@ -1,5 +1,8 @@
 package hh.sof3as3.concertCalendar;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -25,16 +28,28 @@ public class ConcertCalendarApplication {
 	public CommandLineRunner demo(EventRepository eventrepository, GenreRepository genrerepository) {
 		return (args) -> {
 			//Testidataa
+			/* 
 			Event event1 = new Event("JamNight", 5.0, "Lava vapaa");
 			Event event2 = new Event("Pop-ilta", 10.0, "Tervetuloa!");
 			eventrepository.save(event1);
 			eventrepository.save(event2);
+			*/
 
 			// Testidataa genre
 			Genre genre1 = new Genre("Jazz");
 			Genre genre2 = new Genre("Pop");
+			
+			Set <Genre> genres = new HashSet<Genre>();
+			genres.add(genre1);
+			genres.add(genre2);
+
 			genrerepository.save(genre1);
 			genrerepository.save(genre2);
+			
+			
+			eventrepository.save(new Event("JamNight", 5.0, "Lava vaplaa",null ));
+			eventrepository.save(new Event("Pop-ilta", 10.0, "Tervetuloa", genres));
+			
 
 			// Event logitus
 			log.info("show all events");
