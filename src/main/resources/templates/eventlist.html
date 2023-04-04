@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xlmns:th="https://www.thymeleaf.org" xlmns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,10 @@
 </head>
 <body>
     <h1>Eventlist</h1>
+
+    <div class="col-md-4">
+		<h2 th:inline="text">Welcome <span sec:authentication="name"></span></h2>
+	</div>
 
 
 	<div class="col-md-4" style="padding:20px 0">
@@ -32,8 +36,8 @@
             <td th:text="${event.info}"></td>
             <td th:each="genre:${genres}" th:value="${genreid}"
                 th:text="${genre.name}"></td>
-            <td><a th:href="@{/delete/{id}(id=${event.id})}" class="btn btn-danger">Delete</a></td>
-            <td><a th:href="@{/edit/{id}(id=${event.id})}" class="btn btn-success">Edit</a></td>
+            <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${event.id})}" class="btn btn-danger">Delete</a></td>
+            <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/edit/{id}(id=${event.id})}" class="btn btn-success">Edit</a></td>
         </tr>
     </table>
 
