@@ -8,40 +8,91 @@
     <title>Eventlist</title>
 </head>
 <body>
-    <h1>Eventlist</h1>
+    <header>
+        <div class="header" style="text-align: center;">
+            <h1>Eventlist</h1>
+        </div>
+    </header>
 
-    <div class="col-md-4">
-		<h2 th:inline="text">Welcome <span sec:authentication="name"></span></h2>
-	</div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Eventlist <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/genrelist">Genrelist</a>
+            <a class="nav-item nav-link" href="/addevent" sec:authorize="hasAuthority('ADMIN')" >Add Event</a>
+          </div>
+          <div class="nav_element" >
+            <form th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign In" class="btn btn-success"/>
+            </form>
+        </div>
 
+        <div class="nav_element" style="margin-left: 20px;">
+            <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign Out" class="btn btn-danger"/>
+            </form>
+        </div>
+        </div>
+      </nav>
+    
+    <div class="navbar">
+        <div class="nav_element">
+            <h2 class="greeting" th:inline="text">Welcome <span sec:authentication="name"></span></h2>
+        </div>
+    
+        
+    
+        <div class="nav_element" >
+            <form th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign In" class="btn btn-success"/>
+            </form>
+        </div>
+       
+    </div>
 
-	<div class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post" >
-			<input type="submit" value="Sign Out" class="btn btn-danger"/>
-		</form>
-	</div>
+    <div class="nav_element" style="margin-left: 20px;">
+        <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/login}" method="post" >
+            <input type="submit" value="Sign Out" class="btn btn-danger"/>
+        </form>
+    </div>
+   
 
-    <table class="table table-striped">
-        <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Info</th>
-            <th>Genre</th>
-            <th></th>
-        </tr>
+    <div class="table table-striped" style="padding: 20px;">
+        <table class="content_table" style="margin:auto">
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Info</th>
+                <th>Genre</th>
+                <th></th>
+                <th></th>
+            </tr>
+    
+            <tr th:each="event : ${events}">
+                <td th:text="${event.title}"></td>
+                <td th:text="${event.price}"></td>
+                <td th:text="${event.info}"></td>
+                <td><span th:each="genre:${event.genres}" th:text="${genre.name} + ', '"></span></td>
+                
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${event.id})}" class="btn btn-danger">Delete</a></td>
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'USER')"><a th:href="@{/edit/{id}(id=${event.id})}" class="btn btn-success">Edit</a></td>
+            </tr>
+            
+        </table>
 
-        <tr th:each="event : ${events}">
-            <td th:text="${event.title}"></td>
-            <td th:text="${event.price}"></td>
-            <td th:text="${event.info}"></td>
-            <td th:each="genre:${genres}" th:value="${genreid}"
-                th:text="${genre.name}"></td>
-            <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${event.id})}" class="btn btn-danger">Delete</a></td>
-            <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/edit/{id}(id=${event.id})}" class="btn btn-success">Edit</a></td>
-        </tr>
-    </table>
+        <div class="nav_element">
+            <a sec:authorize="hasAuthority('ADMIN')" href="/addevent" class="btn btn-success">Add Event</a>
+            <a href="/genrelist" class="btn btn-primary">Genrelist</a>
+        </div>
+        
+    </div>
+    
 
-    <a href="/addevent" class="btn btn-success">Add Event</a>
+    
     
 </body>
 </html>

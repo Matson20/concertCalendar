@@ -24,7 +24,7 @@ public class Event {
     private Double price;
     private String info;
 
-    // ManyToMany tehty JavaGuide ohjeilla. EI VALMIS
+    // ManyToMany 
     @ManyToMany(cascade = { CascadeType.MERGE })
     //@JsonIgnoreProperties("events")
     @JoinTable(
@@ -65,6 +65,12 @@ public class Event {
         this.genres = genres;
     }
 
+    public Event(String title, Double price, String info) {
+        this.title = title;
+        this.price = price;
+        this.info = info;
+    }
+
     // getters
     public Long getId() {
         return id;
@@ -97,6 +103,11 @@ public class Event {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    // Metodin genren lisäykseen
+    public void addGenre(Genre genre) {
+        this.genres.add(genre);
     }
 
     // toString

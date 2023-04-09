@@ -1,5 +1,7 @@
 package hh.sof3as3.concertCalendar;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +22,17 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests()
-                .requestMatchers("/css").permitAll()
-                .requestMatchers("h2-console").permitAll()
+                .requestMatchers("/eventlist","/css/**").permitAll()
+                .requestMatchers(toH2Console()).permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                //.loginPage("/login")
+                .loginPage("/login")
                 .defaultSuccessUrl("/eventlist", true).permitAll()
-                //.csrf().ignoreRequestMatchers(toH2Console())
+                .and()
+                .csrf().ignoringRequestMatchers(toH2Console())
+                //.csrf(csrf -> csrf
+                //.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
                 .and()
             .logout()
                 .permitAll()

@@ -31,6 +31,7 @@ public class EventController {
 
     // Add a new event
     @RequestMapping("/addevent")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addEvent(Model model) {
         model.addAttribute("event", new Event());
         model.addAttribute("genres", genrerepository.findAll());
@@ -39,6 +40,7 @@ public class EventController {
 
     // Save new event
     @PostMapping("/saveevent")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveEvent(Event event) {
         eventrepository.save(event);
         return "redirect:eventlist";
@@ -46,14 +48,15 @@ public class EventController {
 
     // Delete event
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteEvent(@PathVariable("id") Long eventid, Model model) {
         eventrepository.deleteById(eventid);
-        return "redirect:booklist";
+        return "redirect:../eventlist";
     }
 
     // Edit event
     @GetMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public String editEvent(@PathVariable("id") Long eventid, Model model) {
         model.addAttribute("event", eventrepository.findById(eventid));
         model.addAttribute("genres", genrerepository.findAll());

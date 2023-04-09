@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,11 +13,6 @@ import hh.sof3as3.concertCalendar.domain.GenreRepository;
 
 @Controller
 public class GenreController {
-    // TODO
-    // show OK
-    // add
-    // save
-    // delete
 
     @Autowired
     private GenreRepository genrerepository;
@@ -40,6 +36,13 @@ public class GenreController {
     private String saveGenre(Genre genre) {
         genrerepository.save(genre);
         return ("redirect:genrelist");
+    }
+
+    // Delete genre
+    @GetMapping("/deletegenre/{id}")
+    private String deleteGenre(@PathVariable("id") Long genreid, Model model) {
+        genrerepository.deleteById(genreid);
+        return "redirect:../genrelist";
     }
 
 }
