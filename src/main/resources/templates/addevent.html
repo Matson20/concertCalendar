@@ -8,9 +8,32 @@
 </head>
 
 <body>
-	<h1 class="text-center" style="margin-top: 20px;">Add a new event</h1>
+	<h1 class="text-center">Add a new event</h1>
 
-	<div class="content"  style=" margin: 150px; padding: 10px; text-align: center;">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand"><span sec:authentication="name"></span></a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/eventlist">Eventlist</a>
+            <a class="nav-item nav-link" href="/genrelist">Genrelist</a>
+            <a class="nav-item nav-link active" href="#" sec:authorize="hasAuthority('ADMIN')" >Add Event <span class="sr-only"></span></a>
+          </div>
+          <div class="nav_element" >
+            <form th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign In" class="nav-item nav-link"/>
+            </form>
+        </div>
+
+        <div class="nav_element" style="margin-left: 20px;">
+            <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign Out" class="nav-item nav-link"/>
+            </form>
+        </div>
+
+        </div>
+      </nav>
+
+	<div class="content"  style=" margin: 20px 150px 10px 150px; padding: 10px; text-align: center;">
 		<form th:object="${event}" th:action="@{saveevent}" action="#" method="post">
 
 			<div class="form-group">

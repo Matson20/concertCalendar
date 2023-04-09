@@ -8,6 +8,28 @@
 </head>
 <body>
     <h1 class="text-center">Genres</h1>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand"><span sec:authentication="name"></span></a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/eventlist">Eventlist </a>
+            <a class="nav-item nav-link active" href="#">Genrelist<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/addevent" sec:authorize="hasAuthority('ADMIN')" >Add Event</a>
+          </div>
+          <div class="nav_element" >
+            <form th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign In" class="nav-item nav-link"/>
+            </form>
+        </div>
+
+        <div class="nav_element" style="margin-left: 20px;">
+            <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/login}" method="post" >
+                <input type="submit" value="Sign Out" class="nav-item nav-link"/>
+            </form>
+        </div>
+        </div>
+      </nav>
     
 	<div class="content"  style="border: solid grey; margin: 50px 350px 50px 350px; padding: 10px;">
      <table class="table table-striped">
@@ -22,7 +44,6 @@
     	</tr>
      </table>
      <a href="/addgenre" class="btn btn-success">Add Genre</a>
-	 <a href="/eventlist" class="btn btn-primary">Home Page</a>
 	 </div>
 </body>
 </html>
