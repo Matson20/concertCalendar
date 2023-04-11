@@ -1,5 +1,8 @@
 package hh.sof3as3.concertCalendar.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.sof3as3.concertCalendar.domain.Event;
 import hh.sof3as3.concertCalendar.domain.EventRepository;
@@ -61,6 +65,19 @@ public class EventController {
         model.addAttribute("event", eventrepository.findById(eventid));
         model.addAttribute("genres", genrerepository.findAll());
         return "editevent";
+    }
+
+    // RESTful services //
+    // REST Get all the events
+    @GetMapping(value="/events")
+    public @ResponseBody List<Event> getEvents() {
+        return (List<Event>) eventrepository.findAll();
+    }
+
+    // REST find events by ID
+    @GetMapping(value="/events/{id}")
+    public @ResponseBody Optional<Event> findEventREST(@PathVariable("id") Long eventId) {
+        return eventrepository.findById(eventId);
     }
 
     @RequestMapping("/login")
