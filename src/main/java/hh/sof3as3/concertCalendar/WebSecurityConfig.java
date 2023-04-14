@@ -22,7 +22,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests()
-                .requestMatchers("/eventlist","/css/**").permitAll()
+                .requestMatchers("/","/eventlist","/css/**").permitAll()
                 .requestMatchers(toH2Console()).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -35,6 +35,7 @@ public class WebSecurityConfig {
                 //.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")))
                 .and()
             .logout()
+                .logoutSuccessUrl("/eventlist")
                 .permitAll()
                 .and()
                 .httpBasic();

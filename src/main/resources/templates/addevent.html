@@ -41,6 +41,13 @@
 				<input type="text" id="title" class="form-control" placeholder="Title" th:field="*{title}" style="width: 400px;"/></label>
 				<div style="clear: both; display: block; height: 10px;"></div>
 			</div>
+
+			<div class="form-group">
+				<label for="startDay">Day
+					<input placeholder="dd.mm.yyyy" type="date" id="startDay" name="startDay" class="form-control" th:field="*{startDay}"/>
+				</label>
+
+			</div>
 			
 			
 			<div class="form-group">
@@ -65,6 +72,7 @@
 			</div>
 			
 			<input type="submit" value="Save" class="btn btn-success"></input>
+			<a href="/addgenre" class="btn btn-primary">Add Genre</a>
 		</form>
 	</div>
 </body>

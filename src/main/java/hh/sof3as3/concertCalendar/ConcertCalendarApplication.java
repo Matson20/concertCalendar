@@ -1,5 +1,7 @@
 package hh.sof3as3.concertCalendar;
 
+import java.text.SimpleDateFormat;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -29,14 +31,14 @@ public class ConcertCalendarApplication {
 			//Testidataa
 			 
 			
-			
+			SimpleDateFormat edate = new SimpleDateFormat("dd.MM.yyyy");
 
 			// Testidataa genre
 			Genre genre1 = new Genre("Jazz");
 			Genre genre2 = new Genre("Pop");
 			
-			Event event1 = new Event("JamNight", 5.0, "Lava vapaa");
-			Event event2 = new Event("Pop-ilta", 10.0, "Tervetuloa!");
+			Event event1 = new Event("JamNight", edate.parse("01.10.2022"), 5.0, "Lava vapaa");
+			Event event2 = new Event("Pop-ilta", edate.parse("12.12.2023"), 10.0, "Tervetuloa!");
 			
 			genrerepository.save(genre1);
 			genrerepository.save(genre2);

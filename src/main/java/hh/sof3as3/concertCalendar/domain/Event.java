@@ -1,7 +1,10 @@
 package hh.sof3as3.concertCalendar.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,7 +23,8 @@ public class Event {
     @GeneratedValue(strategy=GenerationType.AUTO) // Autogeneroi idt
     private Long id;
     private String title;
-    // private Date date; // TODO: ENSIN YKSINKERTAINEN VERSIO
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date startDay; // TODO: ENSIN YKSINKERTAINEN VERSIO
     private Double price;
     private String info;
 
@@ -53,20 +57,23 @@ public class Event {
     public Event() {
         super();
         this.title = null;
+        this.startDay = null;
         this.price = 0.0;
         this.info = null;
         this.genres = null;
     }
 
-    public Event(String title, Double price, String info, Set<Genre> genres) {
+    public Event(String title, Date startDay, Double price, String info, Set<Genre> genres) {
         this.title = title;
+        this.startDay = startDay;
         this.price = price;
         this.info = info;
         this.genres = genres;
     }
 
-    public Event(String title, Double price, String info) {
+    public Event(String title, Date startDay, Double price, String info) {
         this.title = title;
+        this.startDay = startDay;
         this.price = price;
         this.info = info;
     }
@@ -78,6 +85,10 @@ public class Event {
 
     public String getTitle() {
         return title;
+    }
+
+    public Date getStartDay() {
+        return startDay;
     }
 
     public Double getPrice() {
@@ -97,6 +108,10 @@ public class Event {
         this.title = title;
     }
 
+    public void setStartDay(Date startDay) {
+        this.startDay = startDay;
+    }
+
     public void setPrice(Double price) {
         this.price = price;
     }
@@ -113,7 +128,7 @@ public class Event {
     // toString
     @Override
     public String toString() {
-        return "Event [id=" + id + ", title=" + title + ", price=" + price + ", info=" + info + "]";
+        return "Event [id=" + id + ", title=" + title + ", day=" + startDay + ", price=" + price + ", info=" + info + "]";
     }
 
     

@@ -15,7 +15,7 @@
     </header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand"><span sec:authentication="name"></span></a>
+        <a class="navbar-brand" sec:authorize="hasAnyAuthority('ADMIN', 'USER')"><span sec:authentication="name"></span></a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link active" href="#">Eventlist <span class="sr-only">(current)</span></a>
@@ -29,14 +29,14 @@
         </div>
 
         <div class="nav_element" style="margin-left: 20px;">
-            <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/login}" method="post" >
+            <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/logout}" method="post" >
                 <input type="submit" value="Sign Out" class="nav-item nav-link"/>
             </form>
         </div>
         </div>
       </nav>
     
-        <div class="nav_element">
+        <div class="nav_element" sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
             <h2 class="greeting" th:inline="text">Welcome <span sec:authentication="name"></span></h2>
         </div>
    
@@ -45,6 +45,7 @@
         <table class="content_table" style="margin:auto">
             <tr>
                 <th>Title</th>
+                <th>Date</th>
                 <th>Price</th>
                 <th>Info</th>
                 <th>Genre</th>
@@ -54,6 +55,7 @@
     
             <tr th:each="event : ${events}">
                 <td th:text="${event.title}"></td>
+                <td th:text="${event.startDay}"></td>
                 <td th:text="${event.price}"></td>
                 <td th:text="${event.info}"></td>
                 <td><span th:each="genre:${event.genres}" th:text="${genre.name} + ', '"></span></td>
