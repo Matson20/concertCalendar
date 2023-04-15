@@ -38,13 +38,13 @@
 
 			<div class="form-group">
 					<label for="title">Title
-				<input type="text" id="title" class="form-control" placeholder="Title" th:field="*{title}" style="width: 400px;"/></label>
+				<input type="text" id="title" class="form-control" placeholder="Title" required th:field="*{title}" style="width: 400px;"/></label>
 				<div style="clear: both; display: block; height: 10px;"></div>
 			</div>
 
 			<div class="form-group">
 				<label for="startDay">Day
-					<input placeholder="dd.mm.yyyy" type="date" id="startDay" name="startDay" class="form-control" th:field="*{startDay}"/>
+					<input placeholder="dd.mm.yyyy" type="date" id="startday" name="startDay" class="form-control" required th:field="*{startDay}"/>
 				</label>
 
 			</div>
@@ -52,13 +52,13 @@
 			
 			<div class="form-group">
 					<label for="author">Price
-				<input type="text" class="form-control" placeholder="Price" th:field="*{price}" style="width: 400px;" /></label>
+				<input type="text" class="form-control" placeholder="Price" required th:field="*{price}" style="width: 400px;" /></label>
 				<div style="clear: both; display: block; height: 10px;"></div>
 			</div>
 			
 			<div class="form-group">
 					<label for="year">Info
-				<input type="text" class="form-control" placeholder="Info" th:field="*{info}" style="width: 400px;" /></label>
+				<input type="text" class="form-control" placeholder="Info" required th:field="*{info}" style="width: 400px;" /></label>
 				<div style="clear: both; display: block; height: 10px;"></div>
 			</div>
 

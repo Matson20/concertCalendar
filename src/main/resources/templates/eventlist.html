@@ -55,7 +55,7 @@
     
             <tr th:each="event : ${events}">
                 <td th:text="${event.title}"></td>
-                <td th:text="${event.startDay}"></td>
+                <td th:text="${event.dateStr}"></td>
                 <td th:text="${event.price}"></td>
                 <td th:text="${event.info}"></td>
                 <td><span th:each="genre:${event.genres}" th:text="${genre.name} + ', '"></span></td>

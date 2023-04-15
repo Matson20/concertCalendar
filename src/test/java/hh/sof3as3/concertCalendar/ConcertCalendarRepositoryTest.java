@@ -2,6 +2,7 @@ package hh.sof3as3.concertCalendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,8 @@ public class ConcertCalendarRepositoryTest {
     @Autowired
     private GenreRepository genrerepository;
 
+    SimpleDateFormat edate = new SimpleDateFormat("dd.MM.yyyy");
+
     // Find event
     @Test
     public void findByTitle() {
@@ -56,7 +59,7 @@ public class ConcertCalendarRepositoryTest {
     // Delete event
     @Test
     public void deleteEvent() {
-        Event event1 = new Event("MetalNight", 17.50, "It's gonna be LOUD!");
+        Event event1 = new Event("MetalNight",null, 17.50, "It's gonna be LOUD!");
         eventrepository.save(event1);
         eventrepository.deleteById(event1.getId());
         assertThat(eventrepository.count()).isEqualTo(2);

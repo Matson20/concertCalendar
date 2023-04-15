@@ -29,16 +29,22 @@ public class ConcertCalendarApplication {
 	public CommandLineRunner demo(EventRepository eventrepository, GenreRepository genrerepository, UserRepository userrepository) {
 		return (args) -> {
 			//Testidataa
-			 
+			
+			/*
+			String date1 = "12.12.2023";
+			Date datetime = new SimpleDateFormat("dd.MM.yyyy").parse(date1);
+			String newstring = new SimpleDateFormat("dd.MM.yyyy").format(datetime);
+			*/
 			
 			SimpleDateFormat edate = new SimpleDateFormat("dd.MM.yyyy");
-
 			// Testidataa genre
 			Genre genre1 = new Genre("Jazz");
 			Genre genre2 = new Genre("Pop");
 			
-			Event event1 = new Event("JamNight", edate.parse("01.10.2022"), 5.0, "Lava vapaa");
-			Event event2 = new Event("Pop-ilta", edate.parse("12.12.2023"), 10.0, "Tervetuloa!");
+			Event event1 = new Event("JamNight", edate.parse("12.12.2023"), 5.0, "Lava vapaa");
+			Event event2 = new Event("Pop-ilta", edate.parse("04.04.2022"), 10.0, "Tervetuloa!");
+			//Event event2 = new Event("Pop-ilta", edate.parse("12.12.2023"), 10.0, "Tervetuloa!");
+			//Event event3 = new Event("Pop-ilta", formattedDate, 10.0, "Tervetuloa!");
 			
 			genrerepository.save(genre1);
 			genrerepository.save(genre2);

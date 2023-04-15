@@ -1,5 +1,6 @@
 package hh.sof3as3.concertCalendar.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Event {
     private Long id;
     private String title;
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date startDay; // TODO: ENSIN YKSINKERTAINEN VERSIO
+    private Date startDay; 
     private Double price;
     private String info;
 
@@ -89,6 +90,12 @@ public class Event {
 
     public Date getStartDay() {
         return startDay;
+    }
+
+    // Metodi päivän formatoinnille
+    public String getDateStr() {
+        SimpleDateFormat edate = new SimpleDateFormat("dd.MM.yyyy");
+        return edate.format(this.startDay);
     }
 
     public Double getPrice() {
