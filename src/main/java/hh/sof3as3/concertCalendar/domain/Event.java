@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class Event {
 
     // ManyToMany 
     @ManyToMany(cascade = { CascadeType.MERGE })
-    //@JsonIgnoreProperties("events")
+    @JsonIgnoreProperties("events")
     @JoinTable(
         name="events_genres",
         joinColumns = {
